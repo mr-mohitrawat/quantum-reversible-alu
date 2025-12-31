@@ -4,10 +4,11 @@ from qiskit_ibm_runtime import SamplerV2 as Sampler
 from qiskit_ibm_runtime.fake_provider import FakeFez
 from qiskit_ibm_runtime import QiskitRuntimeService
 
-
+# Aer backend
 aer_backend = Aer.get_backend('qasm_simulator')
+# Fake backend
 ibm_fake_backend = FakeFez()
-ibm_quantum_backend = QiskitRuntimeService().least_busy(simulator=False, operational=True)
+
 
 # Run on Aer Simulator
 def aer_simulator(qc, shots):
@@ -30,6 +31,8 @@ def ibm_fake_simulator(qc, shots):
     print("IBM Fake Simulator Measurement Result: ", counts)
 
 def ibm_quantum_hardware(qc, shots):
+    service = QiskitRuntimeService()
+    ibm_quantum_backend = service.least_busy(simulator=False, operational=True)
     qc_t = transpile(qc, backend=ibm_quantum_backend)
     sampler = Sampler(mode=ibm_quantum_backend)
     job = sampler.run([qc_t], shots=shots)
