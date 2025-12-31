@@ -4,7 +4,6 @@ from gates.and_gate import and_gate
 from gates.xor_gate import xor_gate
 from gates.full_adder import full_adder
 from gates.mux_4_x_1 import mux_4_x_1
-from run_circuit import aer_simulator
 
 def alu_1_bit():
     data = QuantumRegister(3, "data")
